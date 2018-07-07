@@ -20,7 +20,7 @@
           <form>
             <v-text-field
               v-validate="'required'"
-              v-model="name"
+              v-model="form.name"
               :error-messages="errors.collect('name')"
               label="Nome"
               data-vv-name="name"
@@ -29,7 +29,7 @@
 
             <v-text-field
               v-validate="'required|email'"
-              v-model="email"
+              v-model="form.email"
               :error-messages="errors.collect('email')"
               label="E-mail"
               data-vv-name="email"
@@ -38,7 +38,7 @@
 
             <v-text-field
               v-validate="'required'"
-              v-model="password"
+              v-model="form.password"
               :error-messages="errors.collect('password')"
               label="Senha"
               type="password"
@@ -84,9 +84,11 @@
   export default {
     name: "Register",
     data: () => ({
-      name: '',
-      email: '',
-      password: '',
+      form: {
+        name: '',
+        email: '',
+        password: '',
+      },
       alert: {
         show: false,
         type: 'success',
@@ -112,9 +114,8 @@
     methods: {
       onSubmit() {
         this.$validator.validateAll().then((result) => {
-          const {name, email, password} = this;
           if (result) {
-            this.$store.dispatch(AUTH_REGISTER_USER_REQUEST, {name, email, password})
+            this.$store.dispatch(AUTH_REGISTER_USER_REQUEST, this.form)
               .then(() => {
                 this.alert.show = true;
                 this.alert.msg = 'Um e-mail de confirmação foi enviado, verifique antes de fazer login.';
