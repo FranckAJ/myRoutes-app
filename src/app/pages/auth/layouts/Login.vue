@@ -1,34 +1,50 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row align-center justify-center>
-      <v-flex xs4>
-        <form @submit.prevent="onSubmit">
-          <v-text-field
-            v-validate="'required|email'"
-            v-model="email"
-            :error-messages="errors.collect('email')"
-            label="E-mail"
-            data-vv-name="email"
-            required>
-          </v-text-field>
+  <v-layout justify-center>
+    <v-flex md5>
+      <div class="login--head">
+        <h1>Log into your account</h1>
+      </div>
+      <v-card>
+        <v-container text-xs-center text-md-center>
 
-          <v-text-field
-            v-validate="'required'"
-            v-model="password"
-            :error-messages="errors.collect('password')"
-            label="Password"
-            type="password"
-            data-vv-name="password"
-            required>
-          </v-text-field>
+          <div class="logo--container">
+            <img src="/static/rope-75.png" alt="avatar">
+          </div>
 
-          <v-btn type="submit" block color="primary" :disabled="errors.any()">Sign in</v-btn>
-          <v-btn block outline to="register">Sign out</v-btn>
+          <form @submit.prevent="onSubmit">
+            <v-text-field
+              v-validate="'required|email'"
+              v-model="email"
+              :error-messages="errors.collect('email')"
+              label="E-mail"
+              data-vv-name="email"
+              required>
+            </v-text-field>
 
-        </form>
-      </v-flex>
-    </v-layout>
-  </v-container>
+            <v-text-field
+              v-validate="'required'"
+              v-model="password"
+              :error-messages="errors.collect('password')"
+              label="Password"
+              type="password"
+              data-vv-name="password"
+              required>
+            </v-text-field>
+
+            <div class="login--sign">
+              <v-btn type="submit" block color="primary" :disabled="errors.any()">Log in</v-btn>
+            </div>
+
+            <div class="login--register-container">
+              <v-label>Don't have an account?</v-label>
+              <a @click="toRegister()">Sign out</a>
+            </div>
+
+          </form>
+        </v-container>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -67,6 +83,9 @@
               })
           }
         });
+      },
+      toRegister() {
+        this.$router.push('/register');
       }
     },
     mounted() {
@@ -77,4 +96,19 @@
 
 <style lang="scss" scoped>
 
+  .login--head {
+    text-align: center;
+    margin: 30px;
+  }
+  .logo--container {
+    padding-bottom: 15px;
+  }
+
+  .login--sign {
+    margin-top: 10px;
+  }
+
+  .login--register-container {
+    margin-top: 15px;
+  }
 </style>

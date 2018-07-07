@@ -16,6 +16,7 @@
     "firebaseui": "^3.1.1",
     "material-design-icons-iconfont": "^3.0.3",
     "vee-validate": "^2.1.0-beta.6",
+    "vivus": "^0.4.4",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.2",
     "vue-router": "^3.0.1",

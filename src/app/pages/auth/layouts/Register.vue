@@ -1,42 +1,57 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row align-center justify-center>
-      <v-flex xs4>
-        <form>
-          <v-text-field
-            v-validate="'required'"
-            v-model="name"
-            :error-messages="errors.collect('name')"
-            label="Name"
-            data-vv-name="name"
-            required>
-          </v-text-field>
+  <v-layout justify-center>
+    <v-flex md5>
+      <div class="register--head">
+        <h1>Create your account</h1>
+      </div>
+      <v-card>
+        <v-container text-xs-center text-md-center>
 
-          <v-text-field
-            v-validate="'required|email'"
-            v-model="email"
-            :error-messages="errors.collect('email')"
-            label="E-mail"
-            data-vv-name="email"
-            required>
-          </v-text-field>
+          <div class="logo--container">
+            <img src="/static/rope-75.png" alt="avatar">
+          </div>
 
-          <v-text-field
-            v-validate="'required'"
-            v-model="password"
-            :error-messages="errors.collect('password')"
-            label="Password"
-            type="password"
-            data-vv-name="password"
-            required>
-          </v-text-field>
+          <form>
+            <v-text-field
+              v-validate="'required'"
+              v-model="name"
+              :error-messages="errors.collect('name')"
+              label="Name"
+              data-vv-name="name"
+              required>
+            </v-text-field>
 
-          <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Sign out</v-btn>
+            <v-text-field
+              v-validate="'required|email'"
+              v-model="email"
+              :error-messages="errors.collect('email')"
+              label="E-mail"
+              data-vv-name="email"
+              required>
+            </v-text-field>
 
-        </form>
-      </v-flex>
-    </v-layout>
-  </v-container>
+            <v-text-field
+              v-validate="'required'"
+              v-model="password"
+              :error-messages="errors.collect('password')"
+              label="Password"
+              type="password"
+              data-vv-name="password"
+              required>
+            </v-text-field>
+
+            <div class="register--account-btn">
+              <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Create an account</v-btn>
+            </div>
+            <div class="register--login-link">
+              <v-label>Already have an account?</v-label>
+              <a @click="toSignIn()">Log in</a>
+            </div>
+          </form>
+        </v-container>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -77,6 +92,9 @@
               })
           }
         });
+      },
+      toSignIn() {
+        this.$router.push('/login');
       }
     },
 
@@ -87,5 +105,21 @@
 </script>
 
 <style scoped>
+  .register--head {
+    text-align: center;
+    margin: 30px;
+  }
+
+  .logo--container {
+    padding-bottom: 15px;
+  }
+
+  .register--account-btn {
+    margin-top: 10px;
+  }
+
+  .register--login-link {
+    margin-top: 15px;
+  }
 
 </style>

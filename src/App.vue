@@ -20,3 +20,8 @@
     components: {MrNavigation},
   }
 </script>
+<style lang="scss">
+  @import "scss/core";
+  @import "scss/layout";
+
+</style>
