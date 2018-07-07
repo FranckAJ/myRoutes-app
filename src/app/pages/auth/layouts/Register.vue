@@ -11,6 +11,12 @@
             <img src="/static/rope-75.png" alt="avatar">
           </div>
 
+          <div class="msg-block--container">
+            <v-alert :value="alert.show" :type="alert.type" outline>
+              {{alert.msg}}
+            </v-alert>
+          </div>
+
           <form>
             <v-text-field
               v-validate="'required'"
@@ -81,6 +87,11 @@
       name: '',
       email: '',
       password: '',
+      alert: {
+        show: false,
+        type: 'success',
+        msg: ''
+      },
 
       dictionary: {
         custom: {
@@ -88,8 +99,7 @@
             required: 'Campo Obrigatório'
           },
           password: {
-            required: 'Campo Obrigatório',
-            max: 'Limite de caracteres excedidos'
+            required: 'Campo Obrigatório'
           },
           email: {
             required: 'Campo Obrigatório',
@@ -106,7 +116,8 @@
           if (result) {
             this.$store.dispatch(AUTH_REGISTER_USER_REQUEST, {name, email, password})
               .then(() => {
-                this.$router.push('/login');
+                this.alert.show = true;
+                this.alert.msg = 'Um e-mail de confirmação foi enviado, verifique antes de fazer login.';
               })
           }
         });
@@ -134,6 +145,12 @@
     padding-bottom: 15px;
   }
 
+  .msg-block--container {
+    padding-top: 8px;
+    padding-bottom: 12px;
+    text-align: left;
+  }
+
   .register--account-btn {
     margin-top: 10px;
   }
@@ -151,16 +168,17 @@
   }
 
   .social-login--btn-fb {
-       &:hover {
-         border-radius: 4px !important;
-         background: map_get($colors, facebook)!important;
-         color: map_get($colors, white) !important;
-       }
-     }
+    &:hover {
+      border-radius: 4px !important;
+      background: map_get($colors, facebook) !important;
+      color: map_get($colors, white) !important;
+    }
+  }
+
   .social-login--btn-google {
     &:hover {
       border-radius: 4px !important;
-      background: map_get($colors, error)!important;
+      background: map_get($colors, error) !important;
       color: map_get($colors, white) !important;
     }
   }

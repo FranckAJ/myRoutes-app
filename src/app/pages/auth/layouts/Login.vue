@@ -12,12 +12,12 @@
           </div>
 
           <div class="error-block--container">
-            <v-alert v-if="emailVerified" :value="true" type="error" dismissible outline>
-              Usuário com e-mail não confirmado
+            <v-alert :value="alert.show" :type="alert.type" outline>
+              {{alert.msg}}
             </v-alert>
           </div>
 
-          <form @submit.prevent="onSubmit">
+          <form>
             <v-text-field
               v-validate="'required|email'"
               v-model="email"
@@ -38,7 +38,7 @@
             </v-text-field>
 
             <div class="login--sign">
-              <v-btn type="submit" block color="primary" :disabled="errors.any()">Entrar</v-btn>
+              <v-btn @click="onSubmit" block color="primary" :disabled="errors.any()">Entrar</v-btn>
             </div>
 
             <div class="login--register-container">
@@ -61,16 +61,16 @@
     data: () => ({
       email: '',
       password: '',
-      emailVerified: false,
+      alert: {
+        show: false,
+        type: 'error',
+        msg: ''
+      },
 
       dictionary: {
-        attributes: {
-          email: 'E-mail'
-        },
         custom: {
           password: {
-            required: 'Campo Obrigatório',
-            max: 'Limite de caracteres excedidos'
+            required: 'Campo Obrigatório'
           },
           email: {
             required: 'Campo Obrigatório',
@@ -90,7 +90,8 @@
                 if (emailVerified) {
                   this.$router.push('/home');
                 } else {
-                  this.emailVerified = true;
+                  this.alert.show = true;
+                  this.alert.msg = 'Usuário com e-mail não confirmado';
                 }
               })
           }
