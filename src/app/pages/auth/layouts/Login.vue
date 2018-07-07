@@ -1,8 +1,8 @@
 <template>
   <v-layout justify-center>
-    <v-flex md5>
+    <v-flex md4>
       <div class="login--head">
-        <h1>Log into your account</h1>
+        <h1>Faça login na sua conta</h1>
       </div>
       <v-card>
         <v-container text-xs-center text-md-center>
@@ -25,19 +25,19 @@
               v-validate="'required'"
               v-model="password"
               :error-messages="errors.collect('password')"
-              label="Password"
+              label="Senha"
               type="password"
               data-vv-name="password"
               required>
             </v-text-field>
 
             <div class="login--sign">
-              <v-btn type="submit" block color="primary" :disabled="errors.any()">Log in</v-btn>
+              <v-btn type="submit" block color="primary" :disabled="errors.any()">Entrar</v-btn>
             </div>
 
             <div class="login--register-container">
-              <v-label>Don't have an account?</v-label>
-              <a @click="toRegister()">Sign out</a>
+              <v-label>Não possui conta?</v-label>
+              <a @click="toRegister()">Criar conta</a>
             </div>
 
           </form>

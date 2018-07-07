@@ -1,8 +1,8 @@
 <template>
   <v-layout justify-center>
-    <v-flex md5>
+    <v-flex md4>
       <div class="register--head">
-        <h1>Create your account</h1>
+        <h1>Crie sua conta</h1>
       </div>
       <v-card>
         <v-container text-xs-center text-md-center>
@@ -16,7 +16,7 @@
               v-validate="'required'"
               v-model="name"
               :error-messages="errors.collect('name')"
-              label="Name"
+              label="Nome"
               data-vv-name="name"
               required>
             </v-text-field>
@@ -34,22 +34,40 @@
               v-validate="'required'"
               v-model="password"
               :error-messages="errors.collect('password')"
-              label="Password"
+              label="Senha"
               type="password"
               data-vv-name="password"
               required>
             </v-text-field>
 
             <div class="register--account-btn">
-              <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Create an account</v-btn>
+              <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Criar Conta</v-btn>
             </div>
             <div class="register--login-link">
-              <v-label>Already have an account?</v-label>
-              <a @click="toSignIn()">Log in</a>
+              <v-label>Já possui uma conta?</v-label>
+              <a @click="toSignIn()">Entrar</a>
             </div>
           </form>
         </v-container>
       </v-card>
+
+      <div class="social-login--container">
+        <v-card>
+          <v-container grid-list-md text-xs-center>
+            <div class="social-login-head">
+              <v-label>Use sua rede social para acesso rápido</v-label>
+            </div>
+            <v-layout row wrap>
+              <v-flex xs6>
+                <v-btn class="social-login--btn-google" outline block color="error">Google</v-btn>
+              </v-flex>
+              <v-flex xs6>
+                <v-btn class="social-login--btn-fb" outline block color="primary">Facebook</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -104,7 +122,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import '../../../../scss/core';
+
   .register--head {
     text-align: center;
     margin: 30px;
@@ -120,6 +140,29 @@
 
   .register--login-link {
     margin-top: 15px;
+  }
+
+  .social-login--container {
+    margin-top: 20px;
+
+    .social-login-head {
+      margin-bottom: 8px;
+    }
+  }
+
+  .social-login--btn-fb {
+       &:hover {
+         border-radius: 4px !important;
+         background: map_get($colors, facebook)!important;
+         color: map_get($colors, white) !important;
+       }
+     }
+  .social-login--btn-google {
+    &:hover {
+      border-radius: 4px !important;
+      background: map_get($colors, error)!important;
+      color: map_get($colors, white) !important;
+    }
   }
 
 </style>
