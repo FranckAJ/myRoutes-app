@@ -38,8 +38,10 @@ const actions = {
       authService.doAuthentication(user.email, user.password)
         .then((response) => {
           let user = authService.resolveFirebaseDto(response.user);
-          commit(AUTH_SUCCESS, user);
-          resolve();
+          if (user.emailVerified) {
+            commit(AUTH_SUCCESS, user);
+          }
+          resolve(user.emailVerified);
         })
         .catch((err) => {
           commit(AUTH_ERROR);

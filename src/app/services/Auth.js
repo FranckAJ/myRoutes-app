@@ -62,13 +62,22 @@ class AuthService {
     return new Promise((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then((fbUser) => {
-          this.updateProfile(fbUser, {name: user.name});
-          resolve();
+          this.emailVerification(fbUser).then(() => {
+            this.updateProfile(fbUser, {name: user.name});
+            resolve();
+          });
+        })
+        .catch((err) => {
+          reject(err);
         })
         .catch((err) => {
           reject(err);
         })
     });
+  }
+
+  emailVerification(fbUser) {
+    return fbUser.user.sendEmailVerification();
   }
 
   /**

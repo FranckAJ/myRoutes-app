@@ -11,6 +11,12 @@
             <img src="/static/rope-75.png" alt="avatar">
           </div>
 
+          <div class="error-block--container">
+            <v-alert v-if="emailVerified" :value="true" type="error" dismissible outline>
+              Usuário com e-mail não confirmado
+            </v-alert>
+          </div>
+
           <form @submit.prevent="onSubmit">
             <v-text-field
               v-validate="'required|email'"
@@ -55,6 +61,7 @@
     data: () => ({
       email: '',
       password: '',
+      emailVerified: false,
 
       dictionary: {
         attributes: {
@@ -78,8 +85,13 @@
           const {email, password} = this;
           if (result) {
             this.$store.dispatch(AUTH_REQUEST, {email, password})
-              .then(() => {
-                this.$router.push('/home');
+              .then((emailVerified) => {
+
+                if (emailVerified) {
+                  this.$router.push('/home');
+                } else {
+                  this.emailVerified = true;
+                }
               })
           }
         });
@@ -100,8 +112,14 @@
     text-align: center;
     margin: 30px;
   }
+
   .logo--container {
     padding-bottom: 15px;
+  }
+
+  .error-block--container {
+    padding-top: 8px;
+    padding-bottom: 12px;
   }
 
   .login--sign {
