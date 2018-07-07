@@ -1,11 +1,21 @@
-import {DO_AUTH, GET_AUTH} from "../actions/auth";
-import firebase from "../../helpers/firebase";
+import {
+  AUTH_ERROR,
+  AUTH_LOGOUT,
+  AUTH_REGISTER_USER_ERROR,
+  AUTH_REGISTER_USER_REQUEST, AUTH_REGISTER_USER_SUCCESS,
+  AUTH_REQUEST,
+  AUTH_SUCCESS
+} from "../actions/auth";
+
+import authService from "./../../services/Auth";
 
 /**
  *
  * @type {{user: string}}
  */
 const state = {
+  status: '',
+  isAuth: false,
   user: {}
 }
 
@@ -14,7 +24,7 @@ const state = {
  * @type {{getUser: (function(*): string)}}
  */
 const getters = {
-  [GET_AUTH]: state => state.user
+  getUser: state => state.user
 }
 
 /**
@@ -22,18 +32,43 @@ const getters = {
  * @type {{}}
  */
 const actions = {
-  [DO_AUTH]: ({commit}, user) => {
+  [AUTH_REQUEST]: ({commit, dispatch}, user) => {
+    commit(AUTH_REQUEST);
     return new Promise((resolve, reject) => {
-      firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+      authService.doAuthentication(user.email, user.password)
         .then((response) => {
-          commit(DO_AUTH, response.user);
-          resolve(response.user);
+          let user = authService.resolveFirebaseDto(response.user);
+          commit(AUTH_SUCCESS, user);
+          resolve();
         })
         .catch((err) => {
+          commit(AUTH_ERROR);
           reject(err);
         });
     });
+  },
 
+  [AUTH_REGISTER_USER_REQUEST]: ({commit}, user) => {
+    return new Promise((resolve, reject) => {
+      authService.createUser(user)
+        .then(() => {
+          commit(AUTH_REGISTER_USER_SUCCESS);
+          resolve();
+        })
+        .catch((err) => {
+          commit(AUTH_REGISTER_USER_ERROR);
+          reject(err);
+        })
+    });
+  },
+
+  [AUTH_LOGOUT]: ({commit}) => {
+    return new Promise((resolve, reject) => {
+      authService.doLogout().then(() => {
+        commit(AUTH_LOGOUT);
+        resolve();
+      })
+    });
   }
 };
 
@@ -42,8 +77,35 @@ const actions = {
  * @type {{}}
  */
 const mutations = {
-  [DO_AUTH]: (state, response) => {
-    state.user = response
+  [AUTH_REQUEST]: (state) => {
+    state.status = 'loading';
+  },
+
+  [AUTH_SUCCESS]: (state, data) => {
+    state.status = 'success';
+    state.user = data;
+    state.isAuth = true;
+  },
+
+  [AUTH_ERROR]: (state) => {
+    state.status = 'error';
+  },
+
+  [AUTH_LOGOUT]: (state) => {
+    state.user = {};
+    state.isAuth = false;
+  },
+
+  [AUTH_REGISTER_USER_REQUEST]: (state) => {
+    state.status = 'loading';
+  },
+
+  [AUTH_REGISTER_USER_SUCCESS]: (state) => {
+    state.status = 'success';
+  },
+
+  [AUTH_REGISTER_USER_ERROR]: (state) => {
+    state.status = 'error';
   }
 };
 
@@ -51,6 +113,6 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }
 

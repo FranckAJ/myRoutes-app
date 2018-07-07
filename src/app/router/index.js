@@ -5,13 +5,6 @@ import appRoutes from './routes'
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    name: 'home',
-    path: '/',
-    redirect: {
-      name: 'login'
-    }
-  },
   ...appRoutes
 ]
 
