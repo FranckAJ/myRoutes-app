@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.path==='/auth/register' || $route.path==='/auth/login' ? true : false">
+  <div v-if="($route.path !== '/register' && $route.path !== '/login') ? true : false">
     <v-navigation-drawer
       fixed
       :mini-variant="miniVariant"
