@@ -1,5 +1,5 @@
 <template>
-  <div v-if="($route.path !== '/register' && $route.path !== '/login') ? true : false">
+  <div v-if="!$route.meta.isPublic">
     <v-navigation-drawer fixed :mini-variant="miniVariant" v-model="drawer" app>
 
       <v-list class="pa-1">

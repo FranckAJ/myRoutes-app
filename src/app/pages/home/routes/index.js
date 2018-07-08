@@ -6,6 +6,7 @@ export default [
     path: '/home',
     component: Home,
     meta: {
+      isPublic: true,
       requiresAuth: true
     }
   }

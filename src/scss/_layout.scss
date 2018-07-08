@@ -1,6 +1,9 @@
 h1 {
   color: map_get($colors, dark-light) !important;
 }
+h2 {
+  color: map_get($colors, dark-light) !important;
+}
 
 .v-label {
   font-size: 15px;

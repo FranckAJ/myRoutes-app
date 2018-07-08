@@ -7,6 +7,7 @@ export default [
     path: '/login',
     component: Login,
     meta: {
+      isPublic: true,
       requiresAuth: false
     }
   },
@@ -16,6 +17,7 @@ export default [
     path: '/register',
     component: Register,
     meta: {
+      isPublic: true,
       requiresAuth: false
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex md4>
+    <v-flex xs4>
       <div class="login--head">
         <h1>Faça login na sua conta</h1>
       </div>
@@ -8,7 +8,7 @@
         <v-container text-xs-center text-md-center>
 
           <div class="logo--container">
-            <img src="/static/rope-75.png" alt="avatar">
+            <img src="/static/icon/icon-75.png" alt="avatar">
           </div>
 
           <div class="error-block--container">
