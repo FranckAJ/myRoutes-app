@@ -14,12 +14,32 @@
         </v-list-tile>
       </v-list>
 
-      <v-list>
-        <v-list-tile value="item.active" v-for="(item, i) in items" :key="i">
+
+      <v-list dense class="pt-0">
+        <v-list-tile
+          v-for="item in items"
+          :key="item.title"
+          @click="">
           <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title v-text="item.title"></v-list-tile-title>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0">
+        <v-list-tile
+          @click="doLogout">
+          <v-list-tile-action>
+            <v-icon>{{'power_settings_new'}}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Sair</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
 
@@ -39,6 +59,8 @@
 
 <script>
   import {mapGetters} from 'vuex';
+  import {AUTH_LOGOUT} from "../store/actions/auth";
+
   export default {
     name: "mr-navigation",
     data() {
@@ -55,9 +77,19 @@
         title: 'Trip Routes'
       }
     },
+
     computed: mapGetters({
       user: 'getUser'
-    })
+    }),
+
+    methods: {
+      doLogout() {
+        this.$store.dispatch(AUTH_LOGOUT)
+          .then(() => {
+            this.$router.push('/login');
+          })
+      }
+    }
   }
 </script>
 

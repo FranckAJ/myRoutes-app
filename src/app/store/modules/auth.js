@@ -24,7 +24,8 @@ const state = {
  * @type {{getUser: (function(*): string)}}
  */
 const getters = {
-  getUser: state => state.user
+  getUser: state => state.user,
+  isAuth: state => state.isAuth
 }
 
 /**

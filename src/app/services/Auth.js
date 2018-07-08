@@ -29,25 +29,36 @@ class AuthService {
    * @returns {*}
    */
   getUserConnected() {
-    let userLogged = store.getters.user;
+    let userLogged = store.getters.getUser;
     let isAuth = store.getters.isAuth;
-    if (userLogged && isAuth) {
-      return userLogged;
-    }
-    return this.resolveFirebaseDto(this.getUserFirebase());
+    return new Promise((resolve, reject) => {
+      if (userLogged && isAuth) {
+        resolve(userLogged);
+      } else {
+        this.getUserFirebase()
+          .then((user) => {
+            resolve(user);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
   }
 
   /**
    *
    */
   getUserFirebase() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        return user;
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          resolve(this.resolveFirebaseDto(user));
 
-      } else {
-        return null;
-      }
+        } else {
+          resolve(null);
+        }
+      })
     })
   }
 
