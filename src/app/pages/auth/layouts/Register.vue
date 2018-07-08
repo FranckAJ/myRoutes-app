@@ -119,6 +119,7 @@
               .then(() => {
                 this.alert.show = true;
                 this.alert.msg = 'Um e-mail de confirmação foi enviado, verifique antes de fazer login.';
+                this.form.name = this.form.email = this.form.password = '';
               })
           }
         });
