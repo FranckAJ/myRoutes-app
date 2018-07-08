@@ -38,7 +38,7 @@
             </v-text-field>
 
             <div class="login--sign">
-              <v-btn @click="onSubmit" block color="primary" :disabled="errors.any()">Entrar</v-btn>
+              <v-btn :loading="loading" @click="onSubmit" block color="primary" :disabled="errors.any()">Entrar</v-btn>
             </div>
 
             <div class="login--register-container">
@@ -56,6 +56,7 @@
 <script>
   import {AUTH_REQUEST} from './../../../store/actions/auth'
   import {FB_AUTH_INVALID_USER, FB_AUTH_INVALID_PASS} from "../../../helpers/constants";
+  import {mapGetters} from 'vuex';
 
   export default {
     name: "Login",
@@ -109,6 +110,9 @@
         this.$router.push('/register');
       }
     },
+    computed: mapGetters({
+      loading: 'authRequestLoading'
+    }),
     mounted() {
       this.$validator.localize('en', this.dictionary)
     }

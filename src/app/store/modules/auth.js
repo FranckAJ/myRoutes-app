@@ -14,7 +14,8 @@ import authService from "./../../services/Auth";
  * @type {{user: string}}
  */
 const state = {
-  status: '',
+  authRequestLoading: false,
+  registerRequestLoading: false,
   isAuth: false,
   user: {}
 }
@@ -25,7 +26,9 @@ const state = {
  */
 const getters = {
   getUser: state => state.user,
-  isAuth: state => state.isAuth
+  isAuth: state => state.isAuth,
+  authRequestLoading: state => state.authRequestLoading,
+  registerRequestLoading: state => state.registerRequestLoading,
 }
 
 /**
@@ -81,17 +84,17 @@ const actions = {
  */
 const mutations = {
   [AUTH_REQUEST]: (state) => {
-    state.status = 'loading';
+    state.authRequestLoading = true;
   },
 
   [AUTH_SUCCESS]: (state, data) => {
-    state.status = 'success';
+    state.authRequestLoading = false;
     state.user = data;
     state.isAuth = true;
   },
 
   [AUTH_ERROR]: (state) => {
-    state.status = 'error';
+    state.authRequestLoading = false;
   },
 
   [AUTH_LOGOUT]: (state) => {
@@ -100,15 +103,15 @@ const mutations = {
   },
 
   [AUTH_REGISTER_USER_REQUEST]: (state) => {
-    state.status = 'loading';
+    state.registerRequestLoading = true;
   },
 
   [AUTH_REGISTER_USER_SUCCESS]: (state) => {
-    state.status = 'success';
+    state.registerRequestLoading = false;
   },
 
   [AUTH_REGISTER_USER_ERROR]: (state) => {
-    state.status = 'error';
+    state.registerRequestLoading = false;
   }
 };
 
