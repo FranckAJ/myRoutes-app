@@ -14,6 +14,7 @@
         </v-list-tile>
       </v-list>
 
+      <v-divider></v-divider>
 
       <v-list dense class="pt-0">
         <v-list-tile

@@ -55,6 +55,7 @@
 
 <script>
   import {AUTH_REQUEST} from './../../../store/actions/auth'
+  import {FB_AUTH_INVALID_USER, FB_AUTH_INVALID_PASS} from "../../../helpers/constants";
 
   export default {
     name: "Login",
@@ -86,12 +87,19 @@
           if (result) {
             this.$store.dispatch(AUTH_REQUEST, {email, password})
               .then((emailVerified) => {
-
                 if (emailVerified) {
                   this.$router.push('/home');
                 } else {
                   this.alert.show = true;
                   this.alert.msg = 'Usuário com e-mail não confirmado';
+                }
+              })
+              .catch((err) => {
+                this.alert.show = true;
+                if (err.code === FB_AUTH_INVALID_USER || err.code === FB_AUTH_INVALID_PASS) {
+                  this.alert.msg = 'As credenciais fornecidas são inválidas.';
+                } else {
+                  this.alert.msg = 'Falha ao efetuar login. Tente novamente.';
                 }
               })
           }
