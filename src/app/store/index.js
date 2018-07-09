@@ -13,6 +13,7 @@ export default new Vuex.Store({
   },
   plugins: [createPersistedState({
     key: '_mr',
+    paths: ['auth.user.displayName'],
     storage: window.localStorage
   })],
   strict: debug

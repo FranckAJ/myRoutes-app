@@ -13,7 +13,7 @@ class AuthService {
    * @returns {Promise<firebase.auth.UserCredential>}
    */
   doAuthentication(email, password) {
-    return firebase.auth().signInWithEmailAndPassword(email, password);
+    return firebase.auth.signInWithEmailAndPassword(email, password);
   }
 
   /**
@@ -21,7 +21,7 @@ class AuthService {
    * @returns {Promise<void>}
    */
   doLogout() {
-    return firebase.auth().signOut();
+    return firebase.auth.signOut();
   }
 
   /**
@@ -51,7 +51,7 @@ class AuthService {
    */
   getUserFirebase() {
     return new Promise((resolve, reject) => {
-      firebase.auth().onAuthStateChanged((user) => {
+      firebase.auth.onAuthStateChanged((user) => {
         if (user) {
           resolve(this.resolveFirebaseDto(user));
 
@@ -71,7 +71,7 @@ class AuthService {
    */
   createUser(user) {
     return new Promise((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+      firebase.auth.createUserWithEmailAndPassword(user.email, user.password)
         .then((fbUser) => {
           this.emailVerification(fbUser).then(() => {
             this.updateProfile(fbUser, {name: user.name});
