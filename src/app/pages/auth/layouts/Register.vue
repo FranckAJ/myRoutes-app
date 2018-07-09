@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs4>
+    <v-flex xs3>
       <div class="register--head">
         <h1>Crie sua conta</h1>
       </div>

@@ -82,7 +82,6 @@
         font-size: 26px;
         font-weight: 900;
       }
-
     }
     .content--content-btn {
 

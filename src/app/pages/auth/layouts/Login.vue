@@ -1,8 +1,8 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs4>
+    <v-flex xs3>
       <div class="login--head">
-        <h1>Faça login na sua conta</h1>
+        <h1>Entre na sua conta</h1>
       </div>
       <v-card>
         <v-container text-xs-center text-md-center>
