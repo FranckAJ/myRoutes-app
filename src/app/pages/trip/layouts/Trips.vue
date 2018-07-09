@@ -10,8 +10,10 @@
               <v-layout row wrap>
                 <v-flex xs4>
                   <v-autocomplete
-                    v-model="form.fromSelected"
-                    :items="form.cities"
+                    v-model="fromSelected"
+                    :items="cities"
+                    item-text="label"
+                    item-value="value"
                     label="Origem"
                     no-data-text="Nenhuma cidade encontrada"
                     persistent-hint
@@ -20,8 +22,10 @@
                 </v-flex>
                 <v-flex xs4>
                   <v-autocomplete
-                    v-model="form.toSelected"
-                    :items="form.cities"
+                    v-model="toSelected"
+                    :items="cities"
+                    item-text="label"
+                    item-value="value"
                     label="Destino"
                     no-data-text="Nenhuma cidade encontrada"
                     persistent-hint
@@ -30,7 +34,7 @@
                 </v-flex>
                 <v-flex xs3>
                   <div class="register--account-btn">
-                    <v-btn color="primary" @click="getCities">Criar Conta</v-btn>
+                    <v-btn color="primary">Criar Conta</v-btn>
                   </div>
                 </v-flex>
               </v-layout>
@@ -48,11 +52,10 @@
   export default {
     name: "mrTrips",
     data: () => ({
-      form: {
-        fromSelected: {},
-        toSelected: {},
-        password: '',
-      },
+      fromSelected: {},
+      toSelected: {},
+      cities: [],
+
       alert: {
         show: false,
         type: 'success',
@@ -74,17 +77,14 @@
         }
       }
     }),
-    methods: {
-      getCities() {
-        return citiesService.getCities()
-          .then((cities) => {
-            this.cities = cities;
-            cities.forEach((doc) => {
-              console.log(doc.data());
-            });
+    created: (() => {
+      citiesService.getCities()
+        .then((cities) => {
+          cities.forEach((doc) => {
+           this.cities = doc.data().cities;
           });
-      }
-    }
+        });
+    })
   }
 </script>
 
