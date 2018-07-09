@@ -1,81 +1,83 @@
 <template>
-  <v-layout justify-center>
-    <v-flex xs3>
-      <div class="register--head">
-        <h1>Crie sua conta</h1>
-      </div>
-      <v-card>
-        <v-container text-xs-center text-md-center>
-
-          <div class="logo--container">
-            <img src="/static/icon/icon-75.png" alt="avatar">
-          </div>
-
-          <div class="msg-block--container">
-            <v-alert :value="alert.show" :type="alert.type" outline>
-              {{alert.msg}}
-            </v-alert>
-          </div>
-
-          <form>
-            <v-text-field
-              v-validate="'required'"
-              v-model="form.name"
-              :error-messages="errors.collect('name')"
-              label="Nome"
-              data-vv-name="name"
-              required>
-            </v-text-field>
-
-            <v-text-field
-              v-validate="'required|email'"
-              v-model="form.email"
-              :error-messages="errors.collect('email')"
-              label="E-mail"
-              data-vv-name="email"
-              required>
-            </v-text-field>
-
-            <v-text-field
-              v-validate="'required'"
-              v-model="form.password"
-              :error-messages="errors.collect('password')"
-              label="Senha"
-              type="password"
-              data-vv-name="password"
-              required>
-            </v-text-field>
-
-            <div class="register--account-btn">
-              <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Criar Conta</v-btn>
-            </div>
-            <div class="register--login-link">
-              <v-label>Já possui uma conta?</v-label>
-              <a @click="toSignIn()">Entrar</a>
-            </div>
-          </form>
-        </v-container>
-      </v-card>
-
-      <div class="social-login--container">
+  <v-container fluid grid-list-md>
+    <v-layout row justify-center>
+      <v-flex xs12 sm6 md3>
+        <div class="register--head">
+          <h1>Crie sua conta</h1>
+        </div>
         <v-card>
-          <v-container grid-list-md text-xs-center>
-            <div class="social-login-head">
-              <v-label>Use sua rede social para acesso rápido</v-label>
+          <v-container text-xs-center text-md-center>
+
+            <div class="logo--container">
+              <img src="/static/icon/icon-75.png" alt="avatar">
             </div>
-            <v-layout row wrap>
-              <v-flex xs6>
-                <v-btn class="social-login--btn-google" outline block color="error">Google</v-btn>
-              </v-flex>
-              <v-flex xs6>
-                <v-btn class="social-login--btn-fb" outline block color="primary">Facebook</v-btn>
-              </v-flex>
-            </v-layout>
+
+            <div class="msg-block--container">
+              <v-alert :value="alert.show" :type="alert.type" outline>
+                {{alert.msg}}
+              </v-alert>
+            </div>
+
+            <form>
+              <v-text-field
+                v-validate="'required'"
+                v-model="form.name"
+                :error-messages="errors.collect('name')"
+                label="Nome"
+                data-vv-name="name"
+                required>
+              </v-text-field>
+
+              <v-text-field
+                v-validate="'required|email'"
+                v-model="form.email"
+                :error-messages="errors.collect('email')"
+                label="E-mail"
+                data-vv-name="email"
+                required>
+              </v-text-field>
+
+              <v-text-field
+                v-validate="'required'"
+                v-model="form.password"
+                :error-messages="errors.collect('password')"
+                label="Senha"
+                type="password"
+                data-vv-name="password"
+                required>
+              </v-text-field>
+
+              <div class="register--account-btn">
+                <v-btn block color="primary" @click="onSubmit" :disabled="errors.any()">Criar Conta</v-btn>
+              </div>
+              <div class="register--login-link">
+                <v-label>Já possui uma conta?</v-label>
+                <a @click="toSignIn()">Entrar</a>
+              </div>
+            </form>
           </v-container>
         </v-card>
-      </div>
-    </v-flex>
-  </v-layout>
+
+        <div class="social-login--container">
+          <v-card>
+            <v-container grid-list-md text-xs-center>
+              <div class="social-login-head">
+                <v-label>Use sua rede social para acesso rápido</v-label>
+              </div>
+              <v-layout row wrap>
+                <v-flex xs6>
+                  <v-btn class="social-login--btn-google" outline block color="error">Google</v-btn>
+                </v-flex>
+                <v-flex xs6>
+                  <v-btn class="social-login--btn-fb" outline block color="primary">Facebook</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card>
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
